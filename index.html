@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Dictation Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin: 0.5rem 0.25rem;
+      cursor: pointer;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+    .feedback {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 Dictation Practice</h1>
+  <p><strong>Click play, type what you hear, and check your answer!</strong></p>
+
+  <audio id="audio" controls>
+    <source id="audioSource" src="audio/sentence1.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <input type="text" id="userInput" placeholder="Type the sentence here..." />
+  <br />
+  <button onclick="checkAnswer()">Check</button>
+  <button onclick="nextSentence()">Next Sentence ▶️</button>
+
+  <p class="feedback" id="feedback"></p>
+
+  <script>
+    const sentences = [
+      "Yes, she is at home.",
+      "She does not like soccer.",
+      "They are at work.",
+      "They did not come.",
+      "Does she work in this city?",
+      "My mom does not speak English.",
+      "He does not like us.",
+      "Yes, he is sorry.",
+      "My friend wrote another book.",
+      "We like playing soccer.",
+      "I do not know you.",
+      "I am going to bed.",
+      "Does the room have a TV?",
+      "She was wearing glasses.",
+      "My daughter is five years old.",
+      "She does not have any brothers.",
+      "How long will you stay here?",
+      "My father often goes abroad for work.",
+      "There are five seconds left.",
+      "What does this paragraph mean?",
+      "The park is not open to the public.",
+      "She is not a doctor yet.",
+      "It may rain tonight.",
+      "When was she born?",
+      "Last year she was living with us.",
+      "They will raise the price.",
+      "We have never spoken about work.",
+      "I am not the author.",
+      "I share your opinion.",
+      "We cannot prevent that.",
+      "Public speaking makes me nervous.",
+      "Who won the contest?",
+      "She has great respect for her teacher.",
+      "Nobody has ever mentioned it.",
+      "This medicine has a bitter taste.",
+      "The semester exams are finally over.",
+      "This task takes approximately three hours.",
+      "My opinion is completely different from yours.",
+      "They will miss the deadline.",
+      "The effects would have been felt immediately.",
+      "I have an appointment with my client tomorrow.",
+      "The majority of my patients come from out of town.",
+      "The results were never published.",
+      "The company employs people throughout the world.",
+      "I think it gives depth to the writing.",
+      "The researcher had discovered the solution.",
+      "Oil is an important natural resource.",
+      "The lawyer is going to define the terms of the contract.",
+      "You have approximately one month.",
+      "The meaning of the words can change depending on their context.",
+      "We had to put off the meeting because of the storm.",
+      "I don’t know if they have thought of it already.",
+      "The competitive entrance exam takes place every two years.",
+      "That crisis turned out to be a big opportunity.",
+      "All of his works were published by the same publisher.",
+      "I will have missed the flight by the time the cab comes.",
+      "Prior to this story, they had published two others.",
+      "It is spoken by approximately one million people.",
+      "I have to set my watch ahead by two minutes.",
+      "They will have tried to talk to you by the time the story is published."
+    ];
+
+    let current = 0;
+
+    function checkAnswer() {
+      const userInput = document.getElementById("userInput").value.trim();
+      const feedback = document.getElementById("feedback");
+      const correct = sentences[current];
+      if (userInput.toLowerCase() === correct.toLowerCase()) {
+        feedback.textContent = "✅ Correct! Well done.";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = `❌ Not quite.\nYou wrote: "${userInput}"\nCorrect: "${correct}"`;
+        feedback.style.color = "red";
+      }
+    }
+
+    function nextSentence() {
+      current = (current + 1) % sentences.length;
+      const audio = document.getElementById("audio");
+      const source = document.getElementById("audioSource");
+      const feedback = document.getElementById("feedback");
+      const input = document.getElementById("userInput");
+      source.src = `audio/sentence${current + 1}.mp3`;
+      audio.load();
+      input.value = "";
+      feedback.textContent = "";
+    }
+  </script>
+</body>
+</html>
